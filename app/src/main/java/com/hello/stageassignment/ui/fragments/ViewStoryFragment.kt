@@ -64,10 +64,7 @@ class ViewStoryFragment : Fragment(), StoriesProgressView.StoriesListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // Initializing Variables through bundle
         initialize()
-
-        // Initialize the first story
         loadStory()
     }
 
@@ -92,13 +89,11 @@ class ViewStoryFragment : Fragment(), StoriesProgressView.StoriesListener {
 
             // Set touch listeners for reverse and skip views
             binding.reverse.setOnClickListener {
-                Log.e("CLICKED_FOR_REVERSE","STORY_ITEM")
                 binding.stories.reverse()
             }
             binding.reverse.setOnTouchListener(onTouchListener)
 
             binding.skip.setOnClickListener {
-                Log.e("CLICKED_FOR_NEXT","STORY_ITEM")
                 binding.stories.skip()
             }
             binding.skip.setOnTouchListener(onTouchListener)
@@ -172,20 +167,9 @@ class ViewStoryFragment : Fragment(), StoriesProgressView.StoriesListener {
     }
 
     private fun initialize() {
-        try {
-            arguments?.let {
-                stories = it.getParcelableArrayList("STORIES_LIST") ?: emptyList()
-            }
-
-            // Log the size of the stories list to debug
-            Log.d("ViewStoryFragment", "Received ${stories.size} stories")
-
-            if (stories.isEmpty()) {
-                Log.e("ViewStoryFragment", "No stories found in the bundle")
-            }
-
-        } catch (e: Exception) {
-            Log.e("ViewStoryFragment", "Error initializing stories: ${e.message}")
+        arguments?.let {
+            stories = it.getParcelableArrayList("STORIES_LIST") ?: emptyList()
+            storyCounter = it.getInt("SELECTED_POSITION", 0)
         }
     }
 }

@@ -48,6 +48,8 @@ class StoryFragment : Fragment() {
         adapter = StoryViewAdapter { position ->
             val bundle = Bundle().apply {
                 putSerializable("STORIES_LIST", ArrayList(adapter.currentList))
+                putInt("SELECTED_POSITION", position)
+
             }
             findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment, bundle)
         }
