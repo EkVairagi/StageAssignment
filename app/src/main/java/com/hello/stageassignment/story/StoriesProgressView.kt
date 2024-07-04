@@ -14,9 +14,6 @@ class StoriesProgressView : LinearLayout {
 
     private var storiesCount = -1
 
-    /**
-     * pointer of running animation
-     */
     private var current = -1
     private var storiesListener: StoriesListener? = null
     var isComplete: Boolean = false
@@ -80,30 +77,10 @@ class StoriesProgressView : LinearLayout {
         return v
     }
 
-    /**
-     * Set story count and create views
-     *
-     * @param storiesCount story count
-     */
     fun setStoriesCount(storiesCount: Int) {
         this.storiesCount = storiesCount
         reset()
         bindViews()
-    }
-
-    /**
-     * Set stories count and each story duration
-     *
-     * @param durations milli
-     */
-    fun setStoriesCountWithDurations(durations: LongArray) {
-        storiesCount = durations.size
-        reset()
-        bindViews()
-        for (i in progressBars.indices) {
-            progressBars[i].setDuration(durations[i])
-            progressBars[i].setCallback(callback(i))
-        }
     }
 
     private fun reset() {
@@ -113,18 +90,10 @@ class StoriesProgressView : LinearLayout {
         current = -1
     }
 
-    /**
-     * Set storiesListener
-     *
-     * @param storiesListener StoriesListener
-     */
     fun setStoriesListener(storiesListener: StoriesListener?) {
         this.storiesListener = storiesListener
     }
 
-    /**
-     * Skip current story
-     */
     fun skip() {
         if (isSkipStart || isReverseStart) return
         if (isComplete) return
@@ -134,9 +103,6 @@ class StoriesProgressView : LinearLayout {
         p.setMax()
     }
 
-    /**
-     * Reverse current story
-     */
     fun reverse() {
         if (isSkipStart || isReverseStart) return
         if (isComplete) return
@@ -146,11 +112,6 @@ class StoriesProgressView : LinearLayout {
         p.setMin()
     }
 
-    /**
-     * Set a story's duration
-     *
-     * @param duration millisecond
-     */
     fun setStoryDuration(duration: Long) {
         for (i in progressBars.indices) {
             progressBars[i].setDuration(duration)
@@ -190,16 +151,6 @@ class StoriesProgressView : LinearLayout {
         }
     }
 
-    /**
-     * Start progress animation
-     */
-    fun startStories() {
-        progressBars[0].startProgress()
-    }
-
-    /**
-     * Start progress animation from specific progress
-     */
     fun startStories(from: Int) {
         for (i in 0 until from) {
             progressBars[i].setMaxWithoutCallback()
@@ -207,26 +158,17 @@ class StoriesProgressView : LinearLayout {
         progressBars[from].startProgress()
     }
 
-    /**
-     * Need to call when Activity or Fragment destroy
-     */
     fun destroy() {
         for (p in progressBars) {
             p.clear()
         }
     }
 
-    /**
-     * Pause story
-     */
     fun pause() {
         if (current < 0) return
         progressBars[current].pauseProgress()
     }
 
-    /**
-     * Resume story
-     */
     fun resume() {
         if (current < 0) return
         progressBars[current].resumeProgress()

@@ -16,7 +16,6 @@
         android:clickable="true"
         android:focusable="true">
 
-        <!-- Outer Circle with Gradient -->
         <FrameLayout
             android:id="@+id/cardViewStationary"
             android:layout_width="100dp"
@@ -39,7 +38,6 @@
         </FrameLayout>
     </FrameLayout>
 
-    <!-- Username Text -->
     <TextView
         android:id="@+id/username"
         android:layout_width="wrap_content"
